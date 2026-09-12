@@ -3,8 +3,6 @@ Conveyor Simulation
 
 A simple Unity simulation where you place and connect conveyor belts, then send boxes and cans along them. Products collect in a tray at the end of each line. Green lights mean the belts are running; red lights mean they are paused.
 
-Open `Assets/Scenes/SampleScene` in Unity and press Play. Click inside the Game view to use the controls.
-
 ## Controls
 
 - **WASD** - Move the camera.
