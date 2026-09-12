@@ -98,21 +98,9 @@ public class ConveyorPlacement : MonoBehaviour
 
     void PlaceConveyor()
     {
-        // Check for overlap before creating anything. The preview is on Ignore Raycast.
-        Physics.SyncTransforms();
-        foreach (Collider part in preview.GetComponentsInChildren<Collider>())
-        {
-            // Slightly smaller boxes allow neighbouring conveyor ends to touch.
-            Collider[] hits = Physics.OverlapBox(part.bounds.center, part.bounds.extents * 0.98f,
-                Quaternion.identity, Physics.DefaultRaycastLayers);
-            foreach (Collider hit in hits)
-            {
-                if (hit.GetComponentInParent<Conveyor>() != null) return;
-            }
-        }
-
         Conveyor conveyor = Instantiate(conveyorPrefabs[selectedConveyor],
             preview.transform.position, preview.transform.rotation);
+        // Connect both touching ends, including when filling a gap in a line.
         foreach (var existing in placedConveyors)
         {
             if (Vector3.Dot(existing.transform.forward, conveyor.transform.forward) < 0.99f)
