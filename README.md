@@ -15,3 +15,7 @@ Open `Assets/Scenes/SampleScene` in Unity and press Play. Click inside the Game 
 - **Space** - Point at a conveyor and spawn a product at the start of its line. Products alternate between boxes and cans.
 - **E** - Delete the conveyor under the mouse.
 - **P** - Pause or resume all belts.
+
+## Math/logic
+
+<img width="974" height="1012" alt="image" src="https://github.com/user-attachments/assets/299c7c50-617f-4842-bfb0-d5db633e346f" />
