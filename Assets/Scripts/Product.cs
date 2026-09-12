@@ -19,18 +19,19 @@ public class Product : MonoBehaviour
             Destroy(gameObject); // The belt underneath this product was deleted.
             return;
         }
+        if (!ConveyorPlacement.beltsRunning) return;
         distance += speed * Time.deltaTime;
 
         // Keep any extra distance when crossing onto the next conveyor.
         while (distance >= conveyor.Length)
         {
             distance -= conveyor.Length;
-            conveyor = conveyor.nextConveyor;
-            if (conveyor == null)
+            if (conveyor.nextConveyor == null)
             {
-                Destroy(gameObject);
+                conveyor.Collect(this);
                 return;
             }
+            conveyor = conveyor.nextConveyor;
         }
 
         transform.position = Vector3.Lerp(conveyor.startPoint.position,

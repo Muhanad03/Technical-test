@@ -9,6 +9,7 @@ public class ConveyorPlacement : MonoBehaviour
     public Conveyor[] conveyorPrefabs;
     public Product[] productPrefabs;
     public float snapDistance = 1f;
+    public static bool beltsRunning = true;
 
     readonly List<Conveyor> placedConveyors = new List<Conveyor>();
     Conveyor preview;
@@ -19,6 +20,7 @@ public class ConveyorPlacement : MonoBehaviour
 
     void Start()
     {
+        beltsRunning = true;
         SelectConveyor(0);
     }
 
@@ -31,6 +33,7 @@ public class ConveyorPlacement : MonoBehaviour
         if (keyboard.digit1Key.wasPressedThisFrame) SelectConveyor(0);
         if (keyboard.digit2Key.wasPressedThisFrame) SelectConveyor(1);
         if (keyboard.digit3Key.wasPressedThisFrame) SelectConveyor(2);
+        if (keyboard.pKey.wasPressedThisFrame) beltsRunning = !beltsRunning;
         if (keyboard.rKey.wasPressedThisFrame) rotation += 90f;
         if (keyboard.eKey.wasPressedThisFrame) DeleteConveyor();
 
@@ -47,6 +50,8 @@ public class ConveyorPlacement : MonoBehaviour
         if (preview != null) Destroy(preview.gameObject);
         preview = Instantiate(conveyorPrefabs[index]);
         preview.name = "Placement preview";
+        preview.enabled = false;
+        preview.collectionTray.gameObject.SetActive(false);
         // Ignore the preview when pointing at a placed belt to spawn products.
         foreach (var part in preview.GetComponentsInChildren<Transform>())
             part.gameObject.layer = 2; // Unity's Ignore Raycast layer.
